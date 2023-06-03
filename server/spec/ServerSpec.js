@@ -8,10 +8,8 @@ describe('Node Server Request Listener Function', function() {
     // but we want to test our function's behavior totally independent of the server code
     var req = new stubs.request('/classes/messages', 'GET');
     var res = new stubs.response();
-    console.log('get request res before function call: ', res);
+    console.log('serverspec request before handler', req);
     handler.requestHandler(req, res);
-    console.log('get request res after function call: ', res);
-    console.log(res);
     expect(res._responseCode).to.equal(200);
     expect(res._ended).to.equal(true);
   });
@@ -86,9 +84,7 @@ describe('Node Server Request Listener Function', function() {
     var req = new stubs.request('/arglebargle', 'GET');
     var res = new stubs.response();
 
-    console.log(res);
     handler.requestHandler(req, res);
-    console.log(res);
 
     expect(res._responseCode).to.equal(404);
     expect(res._ended).to.equal(true);

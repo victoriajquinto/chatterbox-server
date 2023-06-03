@@ -19,13 +19,14 @@ var requestHandler = function (request, response) {
 
   // GET GET GET GET
   if (request.url === '/classes/messages' && request.method === 'GET') {
-    request.on('data', (chunk) => {
-      storage.push(chunk);
+
+    request.on('readable', () => {
     }).on('end', () => {
+      var statusCode = 200;
+      response.writeHead(statusCode, headers);
+      response.end(JSON.stringify(storage));
     });
-    var statusCode = 200;
-    response.writeHead(statusCode, headers);
-    response.end(JSON.stringify(storage));
+
     // POST POST POST POST POST
   } else if (request.url === '/classes/messages' && request.method === 'POST') {
     let body = [];
